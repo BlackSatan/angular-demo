@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { IProfile } from '../user.service'
 
 @Component({
   selector: 'app-user-info',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserInfoComponent implements OnInit {
 
-  constructor() { }
+ @Input() user: IProfile;
+ @Input() selected: boolean;
+ 
+ constructor(private sanitizer:DomSanitizer){}
+
+ sanitize(url:string) {
+   return this.sanitizer.bypassSecurityTrustUrl(url);
+ }
 
   ngOnInit() {
     

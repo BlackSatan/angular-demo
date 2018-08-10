@@ -1,15 +1,36 @@
 <div class="container">
   <div class="row user-list">
     <app-user
-      *ngFor="let u of users"
-      [user]="u"
+      *ngFor="let p of photos"
+      [user]="p"
+      (click)="setSelectedPhoto(p)"
     ></app-user> 
   </div>
+  <mat-divider vertical class="user-divider"></mat-divider>
   <div class="user-update">
-    <img src="../../src/assets/img/update.png" alt="">
+    <update-button (click)="reload()"></update-button>
   </div>     
 </div>
 <div class="user-info">
-    <app-user-info></app-user-info>
-    <app-user-payment></app-user-payment>
+    <mat-card 
+      *ngIf="selectedPhoto"
+      class="user-info__profiles"
+    >
+      <app-user-info
+        *ngFor="let profile of profiles"
+        [user]="profile"
+        [selected]="profile === selectedProfile"
+        (click)="setSelectedProfile(profile)"
+      >
+      </app-user-info>
+    </mat-card>
+    <mat-card 
+      *ngIf="selectedProfile"
+      class="user-info__payment"
+    >
+      <app-user-payment
+        [cards]="cards"
+        [pid]="selectedProfile.id"
+      ></app-user-payment>
+    </mat-card>
 </div>

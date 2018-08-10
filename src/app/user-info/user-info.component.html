@@ -1,60 +1,16 @@
-<div class="col-sm-4 section1">
-    <div class="info__section">
-      <div class="info__section-user">
-        <div class="scroll">
-          <div class="scroll__element">
-            <div class="scroll__element-user">
-              <img src="../../assets/img/kate-hudson.jpg" alt="">
-            </div>
-            <div class="scroll__element-title">
-              <span>Кейт Гадсон</span>
-              <ul>
-                <li>Відвідує часто кінотеатр</li>
-                <li>Середній чек 1000 грн</li>
-                <li>Улюблені місця в ложі</li>
-              </ul>
-            </div>
-          </div>
-          <div class="scroll__element">
-            <div class="scroll__element-user">
-              <img src="../../assets/img/kate-hudson.jpg" alt="">
-            </div>
-            <div class="scroll__element-title">
-              <span>Кейт Гадсон</span>
-              <ul>
-                <li>Відвідує часто кінотеатр</li>
-                <li>Середній чек 1000 грн</li>
-                <li>Улюблені місця в ложі</li>
-              </ul>
-            </div>
-          </div>
-          <div class="scroll__element">
-            <div class="scroll__element-user">
-              <img src="../../assets/img/kate-hudson.jpg" alt="">
-            </div>
-            <div class="scroll__element-title">
-              <span>Кейт Гадсон</span>
-              <ul>
-                <li>Відвідує часто кінотеатр</li>
-                <li>Середній чек 1000 грн</li>
-                <li>Улюблені місця в ложі</li>
-              </ul>
-            </div>
-          </div>
-          <div class="scroll__element">
-            <div class="scroll__element-user">
-              <img src="../../assets/img/kate-hudson.jpg" alt="">
-            </div>
-            <div class="scroll__element-title">
-              <span>Кейт Гадсон</span>
-              <ul>
-                <li>Відвідує часто кінотеатр</li>
-                <li>Середній чек 1000 грн</li>
-                <li>Улюблені місця в ложі</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+<div
+  [ngClass]="{ 'scroll__element': true, 'scroll__element--active': selected }"
+>
+  <div class="scroll__element-user">
+    <img [src]="sanitize(user.image)" alt="">
+  </div>
+  <div class="scroll__element-title">
+    <span>{{ user.name }}</span>
+    <ul>
+      <li>Відвідує часто кінотеатр</li>
+      <li>Середній чек 1000 грн</li>
+      <li>Улюблені місця в ложі</li>
+    </ul>
+  </div>
 </div>

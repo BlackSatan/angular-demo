@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,11 @@ export class UserComponent implements OnInit {
 
   @Input() user;
   
-  constructor() { }
+  constructor(private sanitizer:DomSanitizer){}
+
+  sanitize(url:string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
 
   ngOnInit() {
     

@@ -1,25 +1,49 @@
-<div class="col-sm-8">
-  <div class="payment-section">
-    <form action="">
-      <div class="card" *ngIf='showImage'>
-        <div class="card__select">
-          <div class="card__select-mastercard">
-            <input type="checkbox" id="cb1" />
-            <label for="cb1"><img src="../../assets/img/if__Mastercard_1156750.png" alt=""></label>
-          </div>
-        </div>
-        <div class="card__input">
-          <input class="input" type="number" placeholder="Сума:">
-          <input class="password" type="password" placeholder="Пароль">
-          <button type="submit" (click)='toggleImage()'><span>Оплата</span></button>
-        </div>
+<form #heroForm="ngForm">
+  <div class="card" *ngIf='showImage'>
+    <div class="card__select">
+      <div
+        *ngFor="let card of _cards"
+        class="card__select-mastercard"
+      >
+        <input 
+          type="radio"
+          [id]="'cb' + card.id"
+          name="card"
+          [(ngModel)]="model.card"
+          [ngModelOptions]="{standalone: true}"
+          [value]="card.id"
+        />
+        <label [for]="'cb' + card.id">
+          <img 
+            *ngIf="card.type === 'mastercard'"
+            src="../../assets/img/mastercard.png" alt=""
+          >
+          <img 
+            *ngIf="card.type === 'visa'"
+            src="../../assets/img/visa.png" alt=""
+          >
+          {{card.number}}
+        </label>
       </div>
-      <div class="success" *ngIf='!showImage'>
-        <div class="success__title">Оплата пройшла успішно!</div>
-        <div class="success__img">
-          <img src="../../assets/img/if_tick_green_619543.png" alt="">
-        </div>
-      </div>
-    </form>
+    </div>
+    <div class="card__input">
+      <input 
+        [(ngModel)]="model.amount" 
+        [ngModelOptions]="{standalone: true}"
+        class="input" type="number"
+         placeholder="Сума:" required>
+      <input 
+        [(ngModel)]="model.password" 
+        [ngModelOptions]="{standalone: true}"
+        class="password" type="password" placeholder="PIN" 
+        required>
+      <button type="submit" (click)='submitForm()'><span>Оплата</span></button>
+    </div>
   </div>
-</div>
+  <div class="success" *ngIf='!showImage'>
+    <div class="success__title">Оплата пройшла успішно!</div>
+    <div class="success__img">
+      <img src="../../assets/img/if_tick_green_619543.png" alt="">
+    </div>
+  </div>
+</form>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsersService } from './user.service';
+import { UsersService, IPhoto, IProfile, ICardAlias } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +8,52 @@ import { UsersService } from './user.service';
   providers: [UsersService]
 })
 export class AppComponent {
-  users = [];
+  private photos: IPhoto[] = [];
+  private profiles: IProfile[] = [];
+  private cards: ICardAlias[] = [];
+  
+  private selectedPhoto: IPhoto;
+  private selectedProfile: IProfile;
 
   constructor(private usersService: UsersService) {}
 
+  private photosSubscription;
+  private profilesSubscription;
+  private cardsSubscription;
+
   ngOnInit() {
-    this.users = this.usersService.users
-    this.usersService.getUsers().subscribe(users => {
-      this.users = users;
-    });
+    this.subscribe();
   }
 
-  
+  ngOnDestroy() {
+    this.photosSubscription.unsubscribe();
+    this.profilesSubscription && this.profilesSubscription.unsubscribe()
+    this.cardsSubscription && this.cardsSubscription.unsubscribe()
+  }
+
+  subscribe() {
+    this.photosSubscription = this.usersService.getPhotos().subscribe(photos => {
+      this.photos = photos;
+    });  
+  }
+
+  reload() {
+    this.photosSubscription.unsubscribe();
+    this.subscribe();
+  }
+
+  setSelectedPhoto(photo: IPhoto) {
+    this.selectedPhoto = photo;
+    this.profilesSubscription = this.usersService.getProfiles(photo.id).subscribe(profiles => {
+      this.profiles = profiles;
+    });
+    this.selectedProfile = null;
+  }
+
+  setSelectedProfile(profile: IProfile) {
+    this.selectedProfile = profile;
+    this.cardsSubscription = this.usersService.getCardAliases(profile.id).subscribe(cardAliases => {
+      this.cards = cardAliases;
+    });
+  }
 }

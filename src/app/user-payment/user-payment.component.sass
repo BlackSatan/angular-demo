@@ -4,7 +4,6 @@
     justify-content: center
     width: 100%
     height: 400px
-    box-shadow: 0 0 20px #00000080
 
 .card
     display: flex
@@ -21,12 +20,15 @@
         width: 130px
         height: 88px
         &-mastercard
-            input[type="checkbox"][id^="cb"]
+            input[type="radio"]:checked + label
+                background: #fffcd6
+            input[type="radio"][id^="cb"]
                 display: none
             label
                 border: 4px solid #747474a9
                 background-color: #FEFAF8
                 border-radius: 10px
+                text-align: center
                 padding: 10px
                 outline: none
                 cursor: pointer

@@ -2,11 +2,7 @@
   <div class="col s3" > 
     <div class="card user" appHover>
       <div class="card-image user__image">
-        <img src="{{ user.image }}">
-        <span 
-          class="card-title user__image-title">
-          {{ user.name | uppercase}}
-        </span>
+        <img [src]="sanitize(user.image)">
       </div>
     </div>
   </div>

@@ -2,21 +2,39 @@
     display: flex
     align-items: center
     justify-content: space-between
-    width: 1200px
+    width: 100%
     padding: 0   
 .user-list
     display: flex
-    flex-wrap: wrap
-    width: 1020px
+    overflow-x: auto
+    overflow-y: hidden
+    width: 95%
+    margin-left: 5%
     height: 200px
 .user-update
-    width: 50px
-    height: 50px
+    width: 5%
+    height: 200px
     cursor: pointer
-    img
-        width: 50px
-        height: 50px
-
+    display: flex
+    justify-content: center
+    align-items: center
+.user-divider
+    height: 100px
+    color: #ccc
+    left: 12px
+    position: relative
 .user-info
     width: 1200px
     margin: 20px auto 0px
+    display: flex
+    justify-content: space-between;
+    &__profiles
+        display: flex
+        align-items: center
+        flex-direction: column
+        width: 370px
+        height: 400px
+        overflow-y: scroll
+        > *
+            width: 100%
+    &__payment
