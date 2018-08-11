@@ -11,18 +11,20 @@
           name="card"
           [(ngModel)]="model.card"
           [ngModelOptions]="{standalone: true}"
-          [value]="card.id"
+          [value]="card.alias"
+          required
         />
         <label [for]="'cb' + card.id">
-          <img 
+          <!-- <img 
             *ngIf="card.type === 'mastercard'"
             src="../../assets/img/mastercard.png" alt=""
           >
           <img 
             *ngIf="card.type === 'visa'"
             src="../../assets/img/visa.png" alt=""
-          >
-          {{card.number}}
+          > -->
+          {{ card.alias }}
+          {{ card.number }}
         </label>
       </div>
     </div>
@@ -37,7 +39,7 @@
         [ngModelOptions]="{standalone: true}"
         class="password" type="password" placeholder="PIN" 
         required>
-      <button type="submit" (click)='submitForm()'><span>Оплата</span></button>
+      <button [disabled]="submitting" mat-stroked-button type="submit" (click)='submitForm()'>Оплата</button>
     </div>
   </div>
   <div class="success" *ngIf='!showImage'>

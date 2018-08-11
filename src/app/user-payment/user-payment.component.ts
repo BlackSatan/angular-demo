@@ -10,12 +10,15 @@ import { Payment } from './payment';
 export class UserPaymentComponent implements OnInit {
   private _cards: ICardAlias[];
 
+  private submitting: boolean = false;
+
   model = new Payment('', 0, '');
 
   constructor(private usersService: UsersService) {}
 
   @Input()
   set cards(cards: ICardAlias[]) {
+    console.log(cards);
     this._cards = cards;
   }
 
@@ -23,13 +26,18 @@ export class UserPaymentComponent implements OnInit {
 
   public showImage: boolean = true;
   submitForm() {
+    this.submitting = true;
     this.usersService.submitPayment({
       profileId: this.pid,
       pin: this.model.password,
-      cardAlias: this.model.card,
+      alias: this.model.card,
       amount: this.model.amount,
     }).subscribe(() => {
+      this.submitting = false;
       this.showImage = false;
+    }, err => {
+      this.submitting = false;
+      alert(err);
     });
   }
 

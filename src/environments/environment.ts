@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  apiHost: 'http://localhost:3000',
+  apiHost: 'http://92c6a749.ngrok.io/api',
   merchantId: 1,
   tradePointId: 1,
-  cameraId: 1,
+  cameraId: 'demoCameraId',
 };
 
 /*

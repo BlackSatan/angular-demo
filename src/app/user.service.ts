@@ -21,14 +21,15 @@ export interface IProfile {
 export interface ICardAlias {
     id: string,
     number: string,
-    type: "visa" | "mastercard",
+    alias: string,
+    // type: "visa" | "mastercard",
 };
 
 export interface IPayment {
     profileId: string,
     pin: string,
     amount: number,
-    cardAlias: string,
+    alias: string,
 };
 
 @Injectable()
@@ -36,18 +37,18 @@ export class UsersService {
     constructor(private http: Http, @Inject(APP_CONFIG) private config: IConfig) {}
 
     getPhotos(): Observable<IPhoto[]> {
-        const { apiHost } = this.config;
+        const { apiHost, cameraId } = this.config;
 
-        return this.http.get(`${apiHost}/stream`)
+        return this.http.get(`${apiHost}/photos?cameraId=${cameraId}`)
             .pipe(map(response => response.json()))
             .pipe(map(response => response.photos))
             .pipe(switchMap((photos): Promise<IPhoto[]> => {
                 return Promise.all(
                     photos.map(async (photo): Promise<IPhoto> => {
-                        const photoFile = await fetch(photo.base64Photo);
+                        const photoFile = await fetch(`data:image/jpg;base64,${photo.base64Photo}`);
                         return {
                             id: `${photo.photoId}`,
-                            image: URL.createObjectURL(await photoFile.blob())
+                            image: URL.createObjectURL(await photoFile.blob()),
                         };
                     })
                 ) as any;
@@ -63,9 +64,9 @@ export class UsersService {
             .pipe(switchMap((photos): Promise<IProfile[]> => {
                 return Promise.all(
                     photos.map(async (profile): Promise<IProfile> => {
-                        const photoFile = await fetch(profile.base64Photo);
+                        const photoFile = await fetch(`data:image/jpg;base64,${profile.base64Photo}`);
                         return {
-                            id: `${profile.profileId}`,
+                            id: `${profile.id}`,
                             image: URL.createObjectURL(await photoFile.blob()),
                             name: profile.name,
                         };
@@ -77,14 +78,14 @@ export class UsersService {
      getCardAliases(profileId: string): Observable<ICardAlias[]> {
         const { apiHost } = this.config;
 
-        return this.http.get(`${apiHost}/cardAliases?profileId=${profileId}`)
+        return this.http.get(`${apiHost}/payments/cards?profileId=${profileId}`)
             .pipe(map(response => response.json()))
-            .pipe(map(response => response.cardAliases))
+            .pipe(map(response => response.cards))
             .pipe(map((aliases: any[]): ICardAlias[] => {
                 return aliases.map((alias): ICardAlias => ({
-                    id: `${alias.id}`,
-                    number: alias.number,
-                    type: alias.type,
+                    id: alias.uid,
+                    number: alias.mask, 
+                    alias: alias.alias,
                 }));
 		    }));
     }
@@ -92,7 +93,8 @@ export class UsersService {
     submitPayment(payment: IPayment) {
         const { apiHost } = this.config;
 
-        return this.http.post(`${apiHost}/pay`, payment);
+        return this.http
+            .post(`${apiHost}/payments`, payment);
     }
 }
 
