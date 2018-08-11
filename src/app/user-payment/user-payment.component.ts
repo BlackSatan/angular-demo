@@ -26,6 +26,9 @@ export class UserPaymentComponent implements OnInit {
 
   public showImage: boolean = true;
   submitForm() {
+    if (this.submitting) {
+      return;
+    }
     this.submitting = true;
     this.usersService.submitPayment({
       profileId: this.pid,

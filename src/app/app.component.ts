@@ -8,12 +8,12 @@ import { UsersService, IPhoto, IProfile, ICardAlias } from './user.service';
   providers: [UsersService]
 })
 export class AppComponent {
-  private photos: IPhoto[] = [];
+  photos: IPhoto[] = [];
   private profiles: IProfile[] = [];
   private cards: ICardAlias[] = [];
   
-  private selectedPhoto: IPhoto;
-  private selectedProfile: IProfile;
+  selectedPhoto: IPhoto;
+  selectedProfile: IProfile;
 
   constructor(private usersService: UsersService) {}
 
