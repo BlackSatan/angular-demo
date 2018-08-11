@@ -1,0 +1,76 @@
+{
+    "photos": [
+        {
+            "id": 0,
+            "photo": "4.jpg"
+        },
+        {
+            "id": 1,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 2,
+            "photo": "2.png"
+        },
+        {
+            "id": 3,
+            "photo": "3.jpg"
+        },
+        {
+            "id": 4,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 5,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 6,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 7,
+            "photo": "3.jpg"
+        },
+        {
+            "id": 6,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 6,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 6,
+            "photo": "1.jpg"
+        },
+        {
+            "id": 6,
+            "photo": "1.jpg"
+        }
+    ],
+    "profiles": [
+        {
+            "id": 2,
+            "photo": "2.png",
+            "name": "Stas"
+        },
+        {
+            "id": 1,
+            "photo": "1.jpg",
+            "name": "Andrey"
+        }
+    ],
+    "cardAliases": [
+        {
+            "id": 2,
+            "number": "4539456366742753",
+            "type": "visa"
+        },
+        {
+            "id": 4,
+            "number": "5117652435718421",
+            "type": "mastercard"
+        }
+    ]
+}
